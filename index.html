@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'background': '#0f172a',
+                        'card-bg': '#1e293b',
+                        'text-primary': '#e2e8f0',
+                        'text-secondary': '#94a3b8',
+                        'accent': '#3b82f6',
+                        'accent-dark': '#2563eb',
+                        'border-color': '#475569',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-text-primary min-h-screen p-8">
+    <div id="main-content" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
+        
+        <!-- Sidebar -->
+        <aside class="bg-card-bg rounded-xl p-6 shadow-xl h-fit sticky top-8">
+            <div class="flex items-center space-x-2 text-xl font-bold mb-8">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 2a8 8 0 100 16A8 8 0 0010 2zm.707 3.293a1 1 0 00-1.414 0l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 10H14a1 1 0 100-2H8.414l2.293-2.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Dashboard</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" id="nav-list" class="flex items-center space-x-3 p-3 rounded-lg bg-accent text-white font-semibold transition-colors duration-200 hover:bg-accent-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 5a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h.01a1 1 0 100-2H10zm3 0a1 1 0 000 2h.01a1 1 0 100-2H13z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Daftar Customer</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" id="nav-profile" class="flex items-center space-x-3 p-3 rounded-lg text-text-secondary transition-colors duration-200 hover:bg-slate-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Profil Admin</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="bg-card-bg rounded-xl p-8 shadow-xl">
+            <!-- Tampilan Daftar Customer -->
+            <div id="list-view" class="active">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold">Daftar Customer</h2>
+                    <button id="add-customer-button" class="bg-accent text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Tambah Customer</span>
+                    </button>
+                </div>
+                <div id="customer-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Customer cards will be inserted here by JS -->
+                </div>
+            </div>
+
+            <!-- Tampilan Edit Customer -->
+            <div id="edit-view" class="hidden">
+                <div class="flex items-center mb-6">
+                    <button id="back-to-list-button-edit" class="text-text-secondary hover:text-white transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <h2 class="text-3xl font-bold ml-4">Edit Customer</h2>
+                </div>
+                
+                <form id="edit-form" class="space-y-6">
+                    <div>
+                        <label for="edit-name" class="block text-text-secondary font-medium mb-1">Nama</label>
+                        <input type="text" id="edit-name" name="name" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="edit-email" class="block text-text-secondary font-medium mb-1">Email</label>
+                        <input type="email" id="edit-email" name="email" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="edit-phone" class="block text-text-secondary font-medium mb-1">Telepon</label>
+                        <input type="tel" id="edit-phone" name="phone" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div class="flex justify-between pt-4">
+                        <button type="submit" class="bg-accent text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark">Simpan Perubahan</button>
+                        <button type="button" id="delete-customer-button" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-red-700">Hapus Customer</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tampilan Tambah Customer -->
+            <div id="add-view" class="hidden">
+                <div class="flex items-center mb-6">
+                    <button id="back-to-list-button-add" class="text-text-secondary hover:text-white transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <h2 class="text-3xl font-bold ml-4">Tambah Customer Baru</h2>
+                </div>
+                
+                <form id="add-form" class="space-y-6">
+                    <div>
+                        <label for="add-name" class="block text-text-secondary font-medium mb-1">Nama</label>
+                        <input type="text" id="add-name" name="name" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="add-email" class="block text-text-secondary font-medium mb-1">Email</label>
+                        <input type="email" id="add-email" name="email" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="add-phone" class="block text-text-secondary font-medium mb-1">Telepon</label>
+                        <input type="tel" id="add-phone" name="phone" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="bg-accent text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark">Simpan Customer</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let customers = [
+            { id: 1, name: 'Malika Shakila', email: 'malika.shakila@example.com', phone: '081234567890' },
+            { id: 2, name: 'Kala Samudra', email: 'kala.samudra@example.com', phone: '085678901234' },
+            { id: 3, name: 'Alaska Mada', email: 'alaska.mada@example.com', phone: '087890123456' },
+            { id: 4, name: 'Sky Kohler', email: 'sky.kohler@example.com', phone: '082198765432' }
+        ];
+
+        const listView = document.getElementById('list-view');
+        const editView = document.getElementById('edit-view');
+        const addView = document.getElementById('add-view');
+        const customerListContainer = document.getElementById('customer-list');
+        const editForm = document.getElementById('edit-form');
+        const addForm = document.getElementById('add-form');
+        const backToEditButton = document.getElementById('back-to-list-button-edit');
+        const backToAddButton = document.getElementById('back-to-list-button-add');
+        const navList = document.getElementById('nav-list');
+        const navProfile = document.getElementById('nav-profile');
+        const addCustomerButton = document.getElementById('add-customer-button');
+        const deleteCustomerButton = document.getElementById('delete-customer-button');
+
+        let currentCustomer = null;
+
+        // Fungsi untuk menampilkan tampilan list customer
+        function renderCustomerList() {
+            customerListContainer.innerHTML = '';
+            customers.forEach(customer => {
+                const customerCard = `
+                    <div class="bg-background border border-border-color p-6 rounded-xl shadow-lg flex flex-col space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-xl truncate">${customer.name}</h3>
+                                <p class="text-text-secondary text-sm truncate">${customer.email}</p>
+                            </div>
+                        </div>
+                        <button data-id="${customer.id}" class="edit-button w-full bg-accent text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:bg-accent-dark">
+                            Edit
+                        </button>
+                    </div>
+                `;
+                customerListContainer.innerHTML += customerCard;
+            });
+
+            document.querySelectorAll('.edit-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const customerId = parseInt(e.target.dataset.id);
+                    currentCustomer = customers.find(c => c.id === customerId);
+                    if (currentCustomer) {
+                        showEditView();
+                    }
+                });
+            });
+        }
+
+        // Fungsi untuk menampilkan tampilan edit customer
+        function showEditView() {
+            listView.classList.add('hidden');
+            editView.classList.remove('hidden');
+            addView.classList.add('hidden');
+            document.getElementById('edit-name').value = currentCustomer.name;
+            document.getElementById('edit-email').value = currentCustomer.email;
+            document.getElementById('edit-phone').value = currentCustomer.phone;
+        }
+
+        // Fungsi untuk menampilkan tampilan tambah customer
+        function showAddView() {
+            listView.classList.add('hidden');
+            editView.classList.add('hidden');
+            addView.classList.remove('hidden');
+            addForm.reset();
+        }
+
+        // Fungsi untuk kembali ke tampilan list
+        function showListView() {
+            listView.classList.remove('hidden');
+            editView.classList.add('hidden');
+            addView.classList.add('hidden');
+        }
+
+        // Handle form submission untuk edit customer
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const updatedData = {
+                name: document.getElementById('edit-name').value,
+                email: document.getElementById('edit-email').value,
+                phone: document.getElementById('edit-phone').value,
+            };
+            
+            Object.assign(currentCustomer, updatedData);
+
+            alert('Data customer berhasil diperbarui!');
+            showListView();
+            renderCustomerList();
+        });
+
+        // Handle delete customer
+        deleteCustomerButton.addEventListener('click', () => {
+            const confirmed = confirm('Anda yakin ingin menghapus customer ini?');
+            if (confirmed) {
+                customers = customers.filter(c => c.id !== currentCustomer.id);
+                alert('Customer berhasil dihapus!');
+                showListView();
+                renderCustomerList();
+            }
+        });
+
+        // Handle form submission untuk tambah customer
+        addForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newCustomer = {
+                id: customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 1,
+                name: document.getElementById('add-name').value,
+                email: document.getElementById('add-email').value,
+                phone: document.getElementById('add-phone').value,
+            };
+
+            customers.push(newCustomer);
+            alert('Customer baru berhasil ditambahkan!');
+            showListView();
+            renderCustomerList();
+        });
+
+        // Event listener untuk tombol dan navigasi
+        backToEditButton.addEventListener('click', showListView);
+        backToAddButton.addEventListener('click', showListView);
+        navList.addEventListener('click', showListView);
+        addCustomerButton.addEventListener('click', showAddView);
+        
+        navProfile.addEventListener('click', () => {
+            alert('Halaman Profil Admin belum tersedia.');
+        });
+
+        // Inisialisasi tampilan awal
+        document.addEventListener('DOMContentLoaded', renderCustomerList);
+    </script>
+</body>
+</html>
