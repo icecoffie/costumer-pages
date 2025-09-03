@@ -1,146 +1,172 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'background': '#0f172a',
-                        'card-bg': '#1e293b',
-                        'text-primary': '#e2e8f0',
-                        'text-secondary': '#94a3b8',
-                        'accent': '#3b82f6',
-                        'accent-dark': '#2563eb',
-                        'border-color': '#475569',
-                    }
-                }
-            }
-        }
-    </script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #1a1a2e;
+            color: #e2e8f0;
+        }
+        .card {
+            background-color: #2a2a4a;
+            border: 1px solid #4a4a6e;
+            color: #e2e8f0; /* All text in the card is white */
+        }
+        .card-header, .navbar {
+            background-color: #2a2a4a;
+            border-bottom: 1px solid #4a4a6e;
+        }
+        .form-control {
+            background-color: #1a1a2e;
+            color: #e2e8f0;
+            border-color: #4a4a6e;
+        }
+        .form-control:focus {
+            background-color: #1a1a2e;
+            color: #e2e8f0;
+            border-color: #6a6a8e;
+            box-shadow: 0 0 0 0.25rem rgba(106, 106, 142, 0.25);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+        .text-white {
+            color: #ffffff !important;
+        }
     </style>
 </head>
-<body class="bg-background text-text-primary min-h-screen p-8">
-    <div id="main-content" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
-        
-        <!-- Sidebar -->
-        <aside class="bg-card-bg rounded-xl p-6 shadow-xl h-fit sticky top-8">
-            <div class="flex items-center space-x-2 text-xl font-bold mb-8">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 2a8 8 0 100 16A8 8 0 0010 2zm.707 3.293a1 1 0 00-1.414 0l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 10H14a1 1 0 100-2H8.414l2.293-2.293z" clip-rule="evenodd" />
-                </svg>
-                <span>Dashboard</span>
-            </div>
-            <nav>
-                <ul>
-                    <li class="mb-2">
-                        <a href="#" id="nav-list" class="flex items-center space-x-3 p-3 rounded-lg bg-accent text-white font-semibold transition-colors duration-200 hover:bg-accent-dark">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 5a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h.01a1 1 0 100-2H10zm3 0a1 1 0 000 2h.01a1 1 0 100-2H13z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Daftar Customer</span>
+<body class="bg-dark text-white p-4">
+    <div class="container-fluid">
+        <div class="row g-4">
+            
+            <!-- Sidebar -->
+            <aside class="col-md-3">
+                <div class="card p-4 rounded-3 shadow-sm h-100">
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fas fa-chart-bar fa-2x text-primary me-2"></i>
+                        <span class="fs-4 fw-bold">Dashboard</span>
+                    </div>
+                    <nav class="nav nav-pills flex-column">
+                        <a href="#" id="nav-list" class="nav-link active bg-primary text-white mb-2">
+                            <i class="fas fa-users me-2"></i>
+                            Daftar Customer
                         </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" id="nav-profile" class="flex items-center space-x-3 p-3 rounded-lg text-text-secondary transition-colors duration-200 hover:bg-slate-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Profil Admin</span>
+                        <a href="#" id="nav-profile" class="nav-link text-white">
+                            <i class="fas fa-user-circle me-2"></i>
+                            Profil Admin
                         </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+                    </nav>
+                </div>
+            </aside>
 
-        <!-- Main Content Area -->
-        <main class="bg-card-bg rounded-xl p-8 shadow-xl">
-            <!-- Tampilan Daftar Customer -->
-            <div id="list-view" class="active">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-3xl font-bold">Daftar Customer</h2>
-                    <button id="add-customer-button" class="bg-accent text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark flex items-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Tambah Customer</span>
-                    </button>
-                </div>
-                <div id="customer-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Customer cards will be inserted here by JS -->
-                </div>
-            </div>
+            <!-- Main Content Area -->
+            <main class="col-md-9">
+                <div class="card p-4 rounded-3 shadow-sm">
 
-            <!-- Tampilan Edit Customer -->
-            <div id="edit-view" class="hidden">
-                <div class="flex items-center mb-6">
-                    <button id="back-to-list-button-edit" class="text-text-secondary hover:text-white transition-colors duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                    </button>
-                    <h2 class="text-3xl font-bold ml-4">Edit Customer</h2>
-                </div>
-                
-                <form id="edit-form" class="space-y-6">
-                    <div>
-                        <label for="edit-name" class="block text-text-secondary font-medium mb-1">Nama</label>
-                        <input type="text" id="edit-name" name="name" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
+                    <!-- Tampilan Daftar Customer -->
+                    <div id="list-view" class="active">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="fs-3 fw-bold text-white">Daftar Customer</h2>
+                            <button id="add-customer-button" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Tambah Customer
+                            </button>
+                        </div>
+                        <div id="customer-list" class="row g-3">
+                            <!-- Customer cards will be inserted here by JS -->
+                        </div>
                     </div>
-                    <div>
-                        <label for="edit-email" class="block text-text-secondary font-medium mb-1">Email</label>
-                        <input type="email" id="edit-email" name="email" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
-                    </div>
-                    <div>
-                        <label for="edit-phone" class="block text-text-secondary font-medium mb-1">Telepon</label>
-                        <input type="tel" id="edit-phone" name="phone" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
-                    </div>
-                    <div class="flex justify-between pt-4">
-                        <button type="submit" class="bg-accent text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark">Simpan Perubahan</button>
-                        <button type="button" id="delete-customer-button" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-red-700">Hapus Customer</button>
-                    </div>
-                </form>
-            </div>
 
-            <!-- Tampilan Tambah Customer -->
-            <div id="add-view" class="hidden">
-                <div class="flex items-center mb-6">
-                    <button id="back-to-list-button-add" class="text-text-secondary hover:text-white transition-colors duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                    </button>
-                    <h2 class="text-3xl font-bold ml-4">Tambah Customer Baru</h2>
+                    <!-- Tampilan Edit Customer -->
+                    <div id="edit-view" class="d-none">
+                        <div class="d-flex align-items-center mb-4">
+                            <button id="back-to-list-button-edit" class="btn btn-link text-white p-0 me-2">
+                                <i class="fas fa-arrow-left fa-lg"></i>
+                            </button>
+                            <h2 class="fs-3 fw-bold text-white">Edit Customer</h2>
+                        </div>
+                        
+                        <form id="edit-form" class="row g-3">
+                            <div class="col-12">
+                                <label for="edit-name" class="form-label text-white">Nama</label>
+                                <input type="text" id="edit-name" name="name" class="form-control" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="edit-email" class="form-label text-white">Email</label>
+                                <input type="email" id="edit-email" name="email" class="form-control" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="edit-phone" class="form-label text-white">Telepon</label>
+                                <input type="tel" id="edit-phone" name="phone" class="form-control">
+                            </div>
+                            <div class="col-12 d-flex justify-content-between pt-3">
+                                <button type="submit" class="btn btn-primary shadow-sm">Simpan Perubahan</button>
+                                <button type="button" id="delete-customer-button" class="btn btn-danger shadow-sm">Hapus Customer</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tampilan Tambah Customer -->
+                    <div id="add-view" class="d-none">
+                        <div class="d-flex align-items-center mb-4">
+                            <button id="back-to-list-button-add" class="btn btn-link text-white p-0 me-2">
+                                <i class="fas fa-arrow-left fa-lg"></i>
+                            </button>
+                            <h2 class="fs-3 fw-bold text-white">Tambah Customer Baru</h2>
+                        </div>
+                        
+                        <form id="add-form" class="row g-3">
+                            <div class="col-12">
+                                <label for="add-name" class="form-label text-white">Nama</label>
+                                <input type="text" id="add-name" name="name" class="form-control" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="add-email" class="form-label text-white">Email</label>
+                                <input type="email" id="add-email" name="email" class="form-control" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="add-phone" class="form-label text-white">Telepon</label>
+                                <input type="tel" id="add-phone" name="phone" class="form-control">
+                            </div>
+                            <div class="col-12 pt-3">
+                                <button type="submit" class="btn btn-primary shadow-sm">Simpan Customer</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                
-                <form id="add-form" class="space-y-6">
-                    <div>
-                        <label for="add-name" class="block text-text-secondary font-medium mb-1">Nama</label>
-                        <input type="text" id="add-name" name="name" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
-                    </div>
-                    <div>
-                        <label for="add-email" class="block text-text-secondary font-medium mb-1">Email</label>
-                        <input type="email" id="add-email" name="email" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
-                    </div>
-                    <div>
-                        <label for="add-phone" class="block text-text-secondary font-medium mb-1">Telepon</label>
-                        <input type="tel" id="add-phone" name="phone" class="w-full p-3 rounded-lg bg-background border border-border-color focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-200">
-                    </div>
-                    <div class="pt-4">
-                        <button type="submit" class="bg-accent text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:bg-accent-dark">Simpan Customer</button>
-                    </div>
-                </form>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         let customers = [
@@ -165,26 +191,25 @@
 
         let currentCustomer = null;
 
-        // Fungsi untuk menampilkan tampilan list customer
         function renderCustomerList() {
             customerListContainer.innerHTML = '';
             customers.forEach(customer => {
                 const customerCard = `
-                    <div class="bg-background border border-border-color p-6 rounded-xl shadow-lg flex flex-col space-y-4">
-                        <div class="flex items-center space-x-4">
-                            <div class="flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                                </svg>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="card p-4 rounded-3 shadow-sm h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title fw-bold text-white">${customer.name}</h5>
+                                    <p class="card-text text-white-50">${customer.email}</p>
+                                </div>
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <h3 class="font-bold text-xl truncate">${customer.name}</h3>
-                                <p class="text-text-secondary text-sm truncate">${customer.email}</p>
-                            </div>
+                            <button data-id="${customer.id}" class="edit-button btn btn-primary w-100 mt-auto">
+                                Edit
+                            </button>
                         </div>
-                        <button data-id="${customer.id}" class="edit-button w-full bg-accent text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:bg-accent-dark">
-                            Edit
-                        </button>
                     </div>
                 `;
                 customerListContainer.innerHTML += customerCard;
@@ -201,32 +226,28 @@
             });
         }
 
-        // Fungsi untuk menampilkan tampilan edit customer
         function showEditView() {
-            listView.classList.add('hidden');
-            editView.classList.remove('hidden');
-            addView.classList.add('hidden');
+            listView.classList.add('d-none');
+            editView.classList.remove('d-none');
+            addView.classList.add('d-none');
             document.getElementById('edit-name').value = currentCustomer.name;
             document.getElementById('edit-email').value = currentCustomer.email;
             document.getElementById('edit-phone').value = currentCustomer.phone;
         }
 
-        // Fungsi untuk menampilkan tampilan tambah customer
         function showAddView() {
-            listView.classList.add('hidden');
-            editView.classList.add('hidden');
-            addView.classList.remove('hidden');
+            listView.classList.add('d-none');
+            editView.classList.add('d-none');
+            addView.classList.remove('d-none');
             addForm.reset();
         }
 
-        // Fungsi untuk kembali ke tampilan list
         function showListView() {
-            listView.classList.remove('hidden');
-            editView.classList.add('hidden');
-            addView.classList.add('hidden');
+            listView.classList.remove('d-none');
+            editView.classList.add('d-none');
+            addView.classList.add('d-none');
         }
 
-        // Handle form submission untuk edit customer
         editForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const updatedData = {
@@ -242,7 +263,6 @@
             renderCustomerList();
         });
 
-        // Handle delete customer
         deleteCustomerButton.addEventListener('click', () => {
             const confirmed = confirm('Anda yakin ingin menghapus customer ini?');
             if (confirmed) {
@@ -253,7 +273,6 @@
             }
         });
 
-        // Handle form submission untuk tambah customer
         addForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const newCustomer = {
@@ -269,7 +288,6 @@
             renderCustomerList();
         });
 
-        // Event listener untuk tombol dan navigasi
         backToEditButton.addEventListener('click', showListView);
         backToAddButton.addEventListener('click', showListView);
         navList.addEventListener('click', showListView);
@@ -279,7 +297,6 @@
             alert('Halaman Profil Admin belum tersedia.');
         });
 
-        // Inisialisasi tampilan awal
         document.addEventListener('DOMContentLoaded', renderCustomerList);
     </script>
 </body>
